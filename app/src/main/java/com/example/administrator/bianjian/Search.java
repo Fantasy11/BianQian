@@ -25,9 +25,10 @@ public class Search extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.find:
-
+                break;
             case R.id.back_bt:
                 this.finish();
+                break;
         }
     }
 }

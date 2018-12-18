@@ -33,7 +33,11 @@ public class Content extends AppCompatActivity implements View.OnClickListener {
         back_bt.setOnClickListener(this);
         save_bt.setOnClickListener(this);
 
-        id=getIntent().getExtras().getInt("Id");
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null){
+            id=bundle.getInt("Id");
+        }
+
         if (isDebug){
             Log.d(TAG,id+"");
         }
@@ -70,11 +74,12 @@ public class Content extends AppCompatActivity implements View.OnClickListener {
                 Intent intent =new Intent(this,MainActivity.class);
                 startActivity(intent);
                 this.finish();
-
+                break;
             case R.id.back_bt:
                 intent =new Intent(this,MainActivity.class);
                 startActivity(intent);
                 this.finish();
+                break;
         }
     }
 }
