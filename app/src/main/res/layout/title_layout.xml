@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@color/colorPrimaryDark">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+
+        android:layout_marginLeft="5dp"
+        android:id="@+id/back_bt"
+        android:src="@drawable/back"
+        android:visibility="gone"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="@string/app_name"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:textColor="#ffffffff"
+        />
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+
+        android:layout_marginRight="40dp"
+        android:id="@+id/search_bt"
+        android:src="@drawable/search"
+        android:visibility="gone"
+        />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+
+        android:layout_marginRight="5dp"
+        android:id="@+id/add_bt"
+        android:src="@drawable/add"
+        android:visibility="gone"
+        />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+
+        android:layout_marginRight="5dp"
+        android:id="@+id/save_bt"
+        android:src="@drawable/save"
+        android:visibility="gone"/>
+</RelativeLayout>
