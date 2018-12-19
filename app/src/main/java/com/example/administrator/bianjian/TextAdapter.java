@@ -28,6 +28,11 @@ public class TextAdapter extends RecyclerView.Adapter <TextAdapter.ViewHolder>{
     public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout,parent,false);
         final ViewHolder viewHolder =new ViewHolder(view);
+        setClickListener(viewHolder,parent);
+        return viewHolder;
+    }
+
+    private void setClickListener(final ViewHolder viewHolder, final ViewGroup parent) {
         viewHolder.tView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +70,6 @@ public class TextAdapter extends RecyclerView.Adapter <TextAdapter.ViewHolder>{
                 return true;
             }
         });
-        return viewHolder;
     }
 
     @Override
@@ -80,9 +84,9 @@ public class TextAdapter extends RecyclerView.Adapter <TextAdapter.ViewHolder>{
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView textView;
-        View tView;
-        TextView time_tv;
+        private TextView textView;
+        private View tView;
+        private TextView time_tv;
         public ViewHolder(View itemView) {
             super(itemView);
             tView=itemView;

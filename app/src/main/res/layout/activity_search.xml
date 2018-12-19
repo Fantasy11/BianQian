@@ -15,22 +15,24 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/find"
+            android:layout_toRightOf="@+id/find"
             android:hint="搜索？"
             android:paddingLeft="20dp"
+            android:layout_centerHorizontal="true"
             android:id="@+id/search_edit"/>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:src="@drawable/search"
             android:id="@+id/find"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentLeft="true"/>
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/find_list">
 
-    </android.support.v7.widget.RecyclerView>
+    </ListView>
 
 </LinearLayout>
