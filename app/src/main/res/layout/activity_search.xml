@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Search"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorBackGround">
     <include layout="@layout/title_layout"/>
     <RelativeLayout
         android:layout_width="match_parent"

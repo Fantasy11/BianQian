@@ -3,16 +3,19 @@ package com.example.administrator.bianjian;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import org.litepal.LitePal;
 import org.litepal.crud.DataSupport;
@@ -60,11 +63,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("Id",0);
                 intent.putExtra("group",userGroup);
                 startActivity(intent);
+                this.finish();
                 break;
             case R.id.search_bt:
                 Intent intent1 = new Intent(this,Search.class);
                 intent1.putExtra("group",userGroup);
                 startActivity(intent1);
+                this.finish();
                 break;
             case R.id.change_bt:
                 PopupMenu popupMenu =new PopupMenu(this,view);
@@ -118,4 +123,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         search_bt.setVisibility(View.VISIBLE);
         change_bt.setVisibility(View.VISIBLE);
     }
+
+    private boolean mIsExit;
+
+    /**
+     * 双击返回键退出
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mIsExit) {
+                this.finish();
+
+            } else {
+                Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                mIsExit = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mIsExit = false;
+                    }
+                }, 2000);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }

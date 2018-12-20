@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorContent"
+    android:background="@color/colorBackGround"
     android:layout_marginTop="15dp">
     <TextView
 
@@ -25,5 +25,6 @@
         tools:text="23414"
         android:textSize="18sp"
         android:textColor="@color/colorFont"
-        android:id="@+id/tv_item"/>
+        android:id="@+id/tv_item"
+        android:paddingBottom="10dp"/>
 </LinearLayout>
