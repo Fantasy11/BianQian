@@ -19,7 +19,7 @@ public class Content extends AppCompatActivity implements View.OnClickListener {
     Boolean exist=false;
     final static String TAG ="DataBaseTT";
     Boolean isDebug =true;
-    int id;
+    int id,group;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +36,9 @@ public class Content extends AppCompatActivity implements View.OnClickListener {
         Bundle bundle=getIntent().getExtras();
         if(bundle!=null){
             id=bundle.getInt("Id");
+            group=bundle.getInt("group");
         }
+
 
         if (isDebug){
             Log.d(TAG,id+"");
@@ -63,7 +65,7 @@ public class Content extends AppCompatActivity implements View.OnClickListener {
                     dBa.update(id);
                 }
                 else {
-
+                    dBa.setNum(group);
                     dBa.save();
 //                    if(isDebug){
 //                        Log.d("DataBaseTT",s+"   "+dBa.getId()+dBa.getNum());

@@ -19,27 +19,38 @@
         android:text="@string/app_name"
         android:textSize="20sp"
         android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:textColor="#ffffffff"
         />
     <ImageView
         android:layout_width="40dp"
         android:layout_height="30dp"
-
-        android:layout_marginRight="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/change_bt"
+        android:src="@drawable/change"
+        android:visibility="gone"
+        />
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_toLeftOf="@+id/add_bt"
+        android:layout_marginRight="5dp"
         android:id="@+id/search_bt"
         android:src="@drawable/search"
         android:visibility="gone"
+        android:layout_centerVertical="true"
         />
 
     <ImageView
         android:layout_width="40dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
-
         android:layout_marginRight="5dp"
         android:id="@+id/add_bt"
         android:src="@drawable/add"
         android:visibility="gone"
+        android:layout_centerVertical="true"
         />
 
     <ImageView
@@ -50,5 +61,6 @@
         android:layout_marginRight="5dp"
         android:id="@+id/save_bt"
         android:src="@drawable/save"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_centerVertical="true"/>
 </RelativeLayout>

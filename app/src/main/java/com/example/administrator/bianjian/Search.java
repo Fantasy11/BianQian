@@ -21,6 +21,7 @@ public class Search extends AppCompatActivity implements View.OnClickListener {
     FilterAdapter filterAdapter;
     ListView listView;
     List<DBa> list;
+    int group;
     static final String TAG ="Find11";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,12 @@ public class Search extends AppCompatActivity implements View.OnClickListener {
         find_bt.setOnClickListener(this);
         back_bt.setVisibility(View.VISIBLE);
         back_bt.setOnClickListener(this);
-        list=DataSupport.findAll(DBa.class);
-        filterAdapter = new FilterAdapter(this,list);
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null){
+            group=bundle.getInt("group");
+        }
+        list=DataSupport.where("num=?",group+"").find(DBa.class);
+        filterAdapter = new FilterAdapter(this,list,group);
         listView.setAdapter(filterAdapter);
     }
 

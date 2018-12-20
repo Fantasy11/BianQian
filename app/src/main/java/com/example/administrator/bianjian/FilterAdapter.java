@@ -19,11 +19,12 @@ public class FilterAdapter extends BaseAdapter implements Filterable {
     private Context context;
     private List<DBa> list;
     private List<DBa> slist=null;
+    private int group;
 
-    public FilterAdapter(Context context, List<DBa> list) {
+    public FilterAdapter(Context context, List<DBa> list, int group) {
         this.context = context;
         this.list = list;
-
+        this.group=group;
     }
 
     static class ViewHolder {
@@ -130,7 +131,8 @@ public class FilterAdapter extends BaseAdapter implements Filterable {
                 notifyDataSetChanged();
             }
             else {
-                notifyDataSetInvalidated();
+                slist=null;
+                notifyDataSetChanged();
             }
         }
     }
