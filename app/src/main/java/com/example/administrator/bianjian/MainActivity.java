@@ -32,12 +32,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<String> list;
     private SharedPreferences sharedPreferences;
     private final static String TAG ="userGroupTest";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //LitePal.getDatabase();
         init();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        resetAdapter();
 
     }
 
@@ -63,13 +71,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("Id",0);
                 intent.putExtra("group",userGroup);
                 startActivity(intent);
-                this.finish();
+                //this.finish();
                 break;
             case R.id.search_bt:
                 Intent intent1 = new Intent(this,Search.class);
                 intent1.putExtra("group",userGroup);
                 startActivity(intent1);
-                this.finish();
+                //this.finish();
                 break;
             case R.id.change_bt:
                 PopupMenu popupMenu =new PopupMenu(this,view);
@@ -80,14 +88,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         switch (menuItem.getItemId()){
                             case R.id.userA:
                                 userGroup=1;
-                                adapter = new TextAdapter(MainActivity.this,data());
-                                recyclerView.setAdapter(adapter);
+                                resetAdapter();
                                 setLocalUser(userGroup);
                                 break;
                             case R.id.userB:
                                 userGroup=2;
-                                adapter = new TextAdapter(MainActivity.this,data());
-                                recyclerView.setAdapter(adapter);
+                                resetAdapter();
                                 setLocalUser(userGroup);
                                 break;
                         }
@@ -107,10 +113,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sharedPreferences =getSharedPreferences("user",Context.MODE_PRIVATE);
         userGroup=sharedPreferences.getInt("user",1);
         layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-        adapter = new TextAdapter(this,data());
         recyclerView = findViewById(R.id.rcView);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
         add_bt=findViewById(R.id.add_bt);
         back_bt=findViewById(R.id.back_bt);
         search_bt=findViewById(R.id.search_bt);
@@ -124,11 +128,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         change_bt.setVisibility(View.VISIBLE);
     }
 
-    private boolean mIsExit;
+    private void resetAdapter(){
+        adapter = new TextAdapter(this,data());
+        recyclerView.setAdapter(adapter);
+    }
 
     /**
      * 双击返回键退出
      */
+    private boolean mIsExit;
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

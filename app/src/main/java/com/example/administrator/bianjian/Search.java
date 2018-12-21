@@ -1,5 +1,6 @@
 package com.example.administrator.bianjian;
 
+import android.content.Intent;
 import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -72,6 +73,8 @@ public class Search extends AppCompatActivity implements View.OnClickListener {
             case R.id.find:
                 break;
             case R.id.back_bt:
+                Intent intent =new Intent(this,MainActivity.class);
+                startActivity(intent);
                 this.finish();
                 break;
         }
