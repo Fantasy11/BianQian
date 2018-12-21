@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">便签</string>
+    <string name="input_hint">记录</string>
 </resources>
