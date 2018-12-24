@@ -29,12 +29,11 @@
             android:layout_alignParentLeft="true"/>
     </RelativeLayout>
 
-    <ListView
-        android:padding="10dp"
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/find_list">
 
-    </ListView>
-
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

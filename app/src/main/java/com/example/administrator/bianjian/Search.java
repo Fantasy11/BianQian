@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,9 +21,10 @@ import java.util.List;
 public class Search extends AppCompatActivity implements View.OnClickListener {
     ImageView find_bt,back_bt;
     EditText editText;
-    FilterAdapter filterAdapter;
-    ListView listView;
+    SearchAdapter searchAdapter;
+    RecyclerView recyclerView;
     List<DBa> list;
+    LinearLayoutManager layoutManager;
     int group;
     static final String TAG ="Find11";
     @Override
@@ -39,7 +42,7 @@ public class Search extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                filterAdapter.getFilter().filter(editText.getText().toString());
+                searchAdapter.getFilter().filter(editText.getText().toString());
                 //Log.d(TAG,editText.getText().toString());
             }
 
@@ -54,7 +57,7 @@ public class Search extends AppCompatActivity implements View.OnClickListener {
         find_bt = findViewById(R.id.find);
         editText = findViewById(R.id.search_edit);
         back_bt = findViewById(R.id.back_bt);
-        listView = findViewById(R.id.find_list);
+        recyclerView = findViewById(R.id.find_list);
         find_bt.setOnClickListener(this);
         back_bt.setVisibility(View.VISIBLE);
         back_bt.setOnClickListener(this);
@@ -63,8 +66,10 @@ public class Search extends AppCompatActivity implements View.OnClickListener {
             group=bundle.getInt("group");
         }
         list=DataSupport.where("num=?",group+"").find(DBa.class);
-        filterAdapter = new FilterAdapter(this,list,group);
-        listView.setAdapter(filterAdapter);
+        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        searchAdapter = new SearchAdapter(this,list);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(searchAdapter);
     }
 
     @Override

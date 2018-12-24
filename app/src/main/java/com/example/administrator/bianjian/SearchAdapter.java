@@ -1,6 +1,5 @@
 package com.example.administrator.bianjian;
 
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,18 +12,18 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TextAdapter extends RecyclerView.Adapter <TextAdapter.ViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter <SearchAdapter.ViewHolder>implements Filterable {
     private List<DBa> list ;
+    private List<DBa> slist;
     private Context context;
+    private MyFilter filter;
 
 
-
-    TextAdapter(Context context,List<DBa> list){
+    SearchAdapter(Context context,List<DBa> list){
         this.context=context;
         this.list=list;
     }
@@ -56,49 +55,66 @@ public class TextAdapter extends RecyclerView.Adapter <TextAdapter.ViewHolder> {
             public void onClick(View view) {
                 int position = viewHolder.getAdapterPosition();
                 Intent intent =new Intent(parent.getContext(),Content.class);
-                intent.putExtra("Id",list.get(position).getId());
+                intent.putExtra("Id",slist.get(position).getId());
                 context.startActivity(intent);
                 //Toast.makeText(parent.getContext(),""+list.get(position),Toast.LENGTH_SHORT).show();
             }
         });
-        viewHolder.tView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                final int position = viewHolder.getAdapterPosition();
-                new AlertDialog.Builder(context)
-                        .setTitle("删除")
-                        .setMessage("是否删除该标签")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                DBa dBa =list.get(position);
-                                dBa.delete();
-                                list.remove(position);
-                                notifyDataSetChanged();
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                            }
-                        })
-                        .create().show();
-                //Toast.makeText(parent.getContext(),"长按"+list.get(position),Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(list.get(position).getContent());
-        holder.time_tv.setText(list.get(position).getDate());
+        holder.textView.setText(slist.get(position).getContent());
+        holder.time_tv.setText(slist.get(position).getDate());
     }
 
     @Override
     public int getItemCount() {
-        return list  == null ? 0 :list.size();
+        return slist  == null ? 0 :slist.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        if(filter==null){
+            filter = new SearchAdapter.MyFilter();
+        }
+        return filter;
+    }
+
+    class MyFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            FilterResults filterResults = new FilterResults();
+            List<DBa> fList = new ArrayList<>();
+            if (charSequence == null || charSequence.length() == 0) {
+                filterResults.count = 0;
+                filterResults.values = null;
+            } else {
+                String s = charSequence.toString();
+                for (DBa dBa : list) {
+                    if (dBa.getContent().contains(s)) {
+                        fList.add(dBa);
+                    }
+                }
+                filterResults.values = fList;
+                filterResults.count = fList.size();
+            }
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+
+            if (filterResults.values != null && filterResults.count > 0) {
+                slist = (List<DBa>) filterResults.values;
+                notifyDataSetChanged();
+            } else {
+                slist = null;
+                notifyDataSetChanged();
+            }
+        }
+
+    }
 }
